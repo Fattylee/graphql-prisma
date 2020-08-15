@@ -1,5 +1,5 @@
 # source: http://localhost:4466/books
-# timestamp: Sat Aug 15 2020 13:13:48 GMT+0100 (West Africa Standard Time)
+# timestamp: Sat Aug 15 2020 22:27:10 GMT+0100 (West Africa Standard Time)
 
 type AggregateComment {
   count: Int!
@@ -445,6 +445,7 @@ type Post implements Node {
   id: ID!
   title: String!
   body: String!
+  published: Boolean!
   author: User!
   comments(where: CommentWhereInput, orderBy: CommentOrderByInput, skip: Int, after: String, before: String, first: Int, last: Int): [Comment!]
 }
@@ -463,6 +464,7 @@ input PostCreateInput {
   id: ID
   title: String!
   body: String!
+  published: Boolean!
   author: UserCreateOneWithoutPostsInput!
   comments: CommentCreateManyWithoutPostInput
 }
@@ -481,6 +483,7 @@ input PostCreateWithoutAuthorInput {
   id: ID
   title: String!
   body: String!
+  published: Boolean!
   comments: CommentCreateManyWithoutPostInput
 }
 
@@ -488,6 +491,7 @@ input PostCreateWithoutCommentsInput {
   id: ID
   title: String!
   body: String!
+  published: Boolean!
   author: UserCreateOneWithoutPostsInput!
 }
 
@@ -507,12 +511,15 @@ enum PostOrderByInput {
   title_DESC
   body_ASC
   body_DESC
+  published_ASC
+  published_DESC
 }
 
 type PostPreviousValues {
   id: ID!
   title: String!
   body: String!
+  published: Boolean!
 }
 
 input PostScalarWhereInput {
@@ -644,6 +651,10 @@ input PostScalarWhereInput {
 
   """All values not ending with the given string."""
   body_not_ends_with: String
+  published: Boolean
+
+  """All values that are not equal to given value."""
+  published_not: Boolean
 }
 
 type PostSubscriptionPayload {
@@ -688,6 +699,7 @@ input PostSubscriptionWhereInput {
 input PostUpdateInput {
   title: String
   body: String
+  published: Boolean
   author: UserUpdateOneRequiredWithoutPostsInput
   comments: CommentUpdateManyWithoutPostInput
 }
@@ -695,11 +707,13 @@ input PostUpdateInput {
 input PostUpdateManyDataInput {
   title: String
   body: String
+  published: Boolean
 }
 
 input PostUpdateManyMutationInput {
   title: String
   body: String
+  published: Boolean
 }
 
 input PostUpdateManyWithoutAuthorInput {
@@ -729,12 +743,14 @@ input PostUpdateOneRequiredWithoutCommentsInput {
 input PostUpdateWithoutAuthorDataInput {
   title: String
   body: String
+  published: Boolean
   comments: CommentUpdateManyWithoutPostInput
 }
 
 input PostUpdateWithoutCommentsDataInput {
   title: String
   body: String
+  published: Boolean
   author: UserUpdateOneRequiredWithoutPostsInput
 }
 
@@ -883,6 +899,10 @@ input PostWhereInput {
 
   """All values not ending with the given string."""
   body_not_ends_with: String
+  published: Boolean
+
+  """All values that are not equal to given value."""
+  published_not: Boolean
   author: UserWhereInput
   comments_every: CommentWhereInput
   comments_some: CommentWhereInput

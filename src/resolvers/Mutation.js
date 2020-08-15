@@ -111,18 +111,26 @@ const Mutation = {
 
     return post;
   },
-  createUser(parent, args, { users }, info) {
-    const { email } = args.data;
-    if (users.some((user) => user.email.toLowerCase() === email.toLowerCase()))
-      throw new Error("Email already exist");
-    const newUser = {
-      id: uuid(),
-      ...args.data,
-      createdAt: Date.now(),
-      friends: [],
-    };
-    users.push(newUser);
-    return newUser;
+  createUser(parent, args, { prisma }, info) {
+    return prisma.mutation.createUser(
+      {
+        data: {
+          ...args.data,
+        },
+      },
+      info
+    );
+    // const { email } = args.data;
+    // if (users.some((user) => user.email.toLowerCase() === email.toLowerCase()))
+    //   throw new Error("Email already exist");
+    // const newUser = {
+    //   id: uuid(),
+    //   ...args.data,
+    //   createdAt: Date.now(),
+    //   friends: [],
+    // };
+    // users.push(newUser);
+    // return newUser;
   },
   updateUser(parent, { id, data: { name, email, age } }, { users }, info) {
     const user = users.find((user) => user.id === id);

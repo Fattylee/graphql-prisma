@@ -10,6 +10,7 @@ type Post {
   id: ID! @id
   title: String!
   body: String!
+  published: Boolean!
   author: User! @relation(name: "UserToPost", onDelete: SET_NULL)
   comments: [Comment!]! @relation(name: "PostToComment", onDelete: CASCADE)
 }
