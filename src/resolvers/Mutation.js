@@ -1,69 +1,16 @@
 import uuid from "uuid/v4";
 
 const Mutation = {
-  deleteComment(parent, args, { comments, pubsub }, info) {
-    const commentIndex = comments.findIndex(
-      (comment) => comment.id === args.id
-    );
-    if (commentIndex === -1) throw new Error("Comment not found");
-    const [comment] = comments.splice(commentIndex, 1);
-    pubsub.publish(`comment ${comment.post}`, {
-      comment: {
-        mutation: "DELETED",
-        data: comment,
-      },
-    });
-    return comment;
+  async deleteComment(parent, { id }, { prisma }, info) {
+    const commentExist = await prisma.exists.Comment({ id });
+    if (!commentExist) throw new Error("No comment found");
+    return prisma.mutation.deleteComment({ where: { id } }, info);
   },
-  deletePost(parent, args, { posts, comments, pubsub }, info) {
-    const postIndex = posts.findIndex((post) => post.id === args.id);
-    if (postIndex === -1) throw new Error("Post not found");
-    const deletedPost = posts.splice(postIndex, 1)[0];
-    const filterComments = comments.filter(
-      (comment) => comment.post !== args.id
-    );
-    comments.splice(0, comments.length, ...filterComments);
-
-    if (deletedPost.published)
-      pubsub.publish("post", {
-        post: {
-          mutation: "DELETED",
-          data: deletedPost,
-        },
-      });
-
-    return deletedPost;
+  deletePost(parent, { id }, { prisma }, info) {
+    return prisma.mutation.deletePost({ where: { id } }, info);
   },
-  deleteUser(parent, args, { users, posts, comments }) {
-    // delete the user with the given ID
-    const index = users.findIndex((user) => user.id === args.id);
-    if (index === -1) throw new Error("User not found");
-    const deletedUser = users.splice(index, 1)[0];
-
-    const newPosts = posts.filter((post) => {
-      const match = post.author !== args.id;
-      if (!match) {
-        const filterComments = comments.filter(
-          (comment) => comment.post !== post.id
-        );
-        comments.splice(0, comments.length, ...filterComments);
-      }
-      return match;
-    });
-    posts.splice(0, posts.length, ...newPosts);
-
-    const newComments = comments.filter(
-      (comment) => comment.author !== args.id
-    );
-    comments.splice(0, comments.length, ...newComments);
-    // update friendList
-    users = users.map((user) => {
-      if (user.friends.includes(args.id)) {
-        user.friends = user.friends.filter((id) => id !== args.id);
-      }
-      return user;
-    });
-    return deletedUser;
+  deleteUser(parent, { id }, { prisma }, info) {
+    return prisma.mutation.deleteUser({ where: { id } }, info);
   },
   createComment(parent, { data }, { users, posts, comments, pubsub }, info) {
     const { author, post } = data;
