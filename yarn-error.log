@@ -1,0 +1,59 @@
+Arguments: 
+  /home/fattylee/.nvm/versions/node/v14.4.0/bin/node /usr/share/yarn/bin/yarn.js add prisma-biding@2.1.1
+
+PATH: 
+  /home/fattylee/anaconda3/bin:/home/fattylee/.config/yarn/global/node_modules/.bin:/home/fattylee/bin:/home/fattylee/.local/bin:/home/fattylee/.nvm/versions/node/v14.4.0/bin:/home/fattylee/anaconda3/bin:/home/fattylee/.config/yarn/global/node_modules/.bin:/home/fattylee/bin:/home/fattylee/.local/bin:/home/fattylee/.local/bin:/home/fattylee/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin:/home/fattylee/.rvm/bin:/home/fattylee/.rvm/bin:/home/fattylee/.rvm/bin
+
+Yarn version: 
+  1.21.1
+
+Node version: 
+  14.4.0
+
+Platform: 
+  linux x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/prisma-biding: Not found
+      at Request.params.callback [as _callback] (/usr/share/yarn/lib/cli.js:66947:18)
+      at Request.self.callback (/usr/share/yarn/lib/cli.js:140665:22)
+      at Request.emit (events.js:315:20)
+      at Request.<anonymous> (/usr/share/yarn/lib/cli.js:141637:10)
+      at Request.emit (events.js:315:20)
+      at IncomingMessage.<anonymous> (/usr/share/yarn/lib/cli.js:141559:12)
+      at Object.onceWrapper (events.js:421:28)
+      at IncomingMessage.emit (events.js:327:22)
+      at endReadableNT (_stream_readable.js:1224:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:21)
+
+npm manifest: 
+  {
+    "name": "prisma",
+    "version": "1.0.0",
+    "description": "",
+    "main": "prisma.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "nodemon -x 'babel-node prisma.js'",
+      "get-schema": "gql get-schema -p prisma"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "@babel/core": "^7.11.1",
+      "@babel/preset-env": "^7.11.0",
+      "graphql-cli": "2.16.4",
+      "prisma-binding": "^2.3.16"
+    },
+    "resolutions": {
+      "graphql": "0.13.2",
+      "**/graphql": "0.13.2"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

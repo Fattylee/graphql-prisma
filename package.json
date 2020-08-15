@@ -1,0 +1,21 @@
+{
+  "name": "prisma",
+  "version": "1.0.0",
+  "description": "",
+  "main": "prisma.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -x 'babel-node src/' -e js,graphql,json",
+    "get-schema": "gql get-schema -p prisma"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "graphql-cli": "2.16.4",
+    "graphql-yoga": "1.14.10",
+    "prisma-binding": "2.1.1"
+  }
+}
