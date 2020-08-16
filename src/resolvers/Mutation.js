@@ -64,80 +64,40 @@ const Mutation = {
       info
     );
   },
-  updateUser(parent, { id, data: { name, email, age } }, { users }, info) {
-    const user = users.find((user) => user.id === id);
-    if (!user) throw new Error("User not found");
-    if (typeof email === "string") {
-      if (
-        users.some((user) => user.email.toLowerCase() === email.toLowerCase())
-      )
-        throw new Error("Email taken");
-      user.email = email;
-    }
-    if (name) user.name = name;
-    if (typeof age !== "undefined") user.age = age;
-
-    return user;
-  },
-  updatePost(
-    parent,
-    { id, data: { title, body, published } = {} },
-    { posts, pubsub }
-  ) {
-    let isTrue = false;
-    const post = posts.find((post) => post.id === id);
-    const originalPost = JSON.parse(JSON.stringify(post)); //deep copy
-    if (!post) throw new Error("Post not found");
-
-    if (title) {
-      isTrue = true;
-      post.title = title;
-    }
-    if (typeof body === "string" && body.length > 5) {
-      isTrue = true;
-      post.body = body;
-    }
-    if (typeof published === "boolean") {
-      post.published = published;
-
-      if (!originalPost.published && post.published) {
-        pubsub.publish("post", {
-          post: {
-            mutation: "CREATED",
-            data: post,
-          },
-        });
-      } else if (originalPost.published && !post.published) {
-        pubsub.publish("post", {
-          post: {
-            mutation: "DELETED",
-            data: originalPost,
-          },
-        });
-      }
-    } else if (post.published && isTrue) {
-      pubsub.publish("post", {
-        post: {
-          mutation: "UPDATED",
-          data: post,
+  async updateUser(parent, { id, data }, { prisma }, info) {
+    const userExist = await prisma.exists.User({ id });
+    if (!userExist) throw new Error("User not found");
+    return prisma.mutation.updateUser(
+      {
+        where: {
+          id,
         },
-      });
-    }
-    return post;
+        data,
+      },
+      info
+    );
   },
-  updateComment(parent, { id, data: { text } = {} }, { comments, pubsub }) {
-    const comment = comments.find((comment) => comment.id === id);
-    if (!comment) throw new Error("Comment not found");
-    if (typeof text === "string" && text.length > 0) {
-      comment.text = text;
-      pubsub.publish(`comment ${comment.post}`, {
-        comment: {
-          mutation: "UPDATED",
-          data: comment,
-        },
-      });
-    }
-    return comment;
+  async updatePost(parent, { id, data }, { prisma }, info) {
+    const postExist = await prisma.exists.Post({ id });
+    if (!postExist) throw new Error("Post not found");
+    return prisma.mutation.updatePost(
+      {
+        data: data,
+        where: { id },
+      },
+      info
+    );
+  },
+  async updateComment(parent, { id, data }, { prisma }, info) {
+    const commentExist = await prisma.exists.Comment({ id });
+    if (!commentExist) throw new Error("Comment not found");
+    return prisma.mutation.updateComment(
+      {
+        data: data,
+        where: { id },
+      },
+      info
+    );
   },
 };
 
