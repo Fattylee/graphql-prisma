@@ -12,51 +12,47 @@ const Mutation = {
   deleteUser(parent, { id }, { prisma }, info) {
     return prisma.mutation.deleteUser({ where: { id } }, info);
   },
-  createComment(parent, { data }, { users, posts, comments, pubsub }, info) {
-    const { author, post } = data;
-    const authorExist = users.some((user) => user.id === author);
-    const postExist = posts.some(({ id, published }) => {
-      return id === post && published;
-    });
-    if (!authorExist) throw new Error("User not found");
-    if (!postExist) throw new Error("Post not found");
-
-    const comment = {
-      id: uuid(),
-      ...data,
-      createdAt: Date.now(),
-    };
-    comments.push(comment);
-    pubsub.publish(`comment ${post}`, {
-      comment: {
-        mutation: "CREATED",
-        data: comment,
-      },
-    });
-    return comment;
-  },
-  createPost(parent, { data }, { users, posts, pubsub }) {
-    const { author, published = true } = data;
-    if (!users.find((user) => user.id === author))
-      throw new Error("User not found");
-    const post = {
-      id: uuid(),
-      ...data,
-      published,
-      createdAt: Date.now(),
-    };
-
-    posts.push(post);
-
-    if (post.published)
-      pubsub.publish("post", {
-        post: {
-          mutation: "CREATED",
-          data: post,
+  createComment(parent, { data: { text, author, post } }, { prisma }, info) {
+    return prisma.mutation.createComment(
+      {
+        data: {
+          text,
+          author: {
+            connect: {
+              id: author,
+            },
+          },
+          post: {
+            connect: {
+              id: post,
+            },
+          },
         },
-      });
-
-    return post;
+      },
+      info
+    );
+  },
+  createPost(
+    parent,
+    { data: { title, body, published, author } },
+    { prisma },
+    info
+  ) {
+    return prisma.mutation.createPost(
+      {
+        data: {
+          title,
+          body,
+          published,
+          author: {
+            connect: {
+              id: author,
+            },
+          },
+        },
+      },
+      info
+    );
   },
   createUser(parent, args, { prisma }, info) {
     return prisma.mutation.createUser(
@@ -67,17 +63,6 @@ const Mutation = {
       },
       info
     );
-    // const { email } = args.data;
-    // if (users.some((user) => user.email.toLowerCase() === email.toLowerCase()))
-    //   throw new Error("Email already exist");
-    // const newUser = {
-    //   id: uuid(),
-    //   ...args.data,
-    //   createdAt: Date.now(),
-    //   friends: [],
-    // };
-    // users.push(newUser);
-    // return newUser;
   },
   updateUser(parent, { id, data: { name, email, age } }, { users }, info) {
     const user = users.find((user) => user.id === id);
