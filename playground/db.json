@@ -1,0 +1,179 @@
+{
+  "users": [
+    {
+      "name": "abu",
+      "email": "abu@gmail",
+      "id": 1
+    },
+    {
+      "name": "ummu",
+      "email": "ummu@gmail",
+      "id": 2
+    },
+    {
+      "name": "kate",
+      "email": "kate@gmail",
+      "id": 3
+    },
+    {
+      "name": "paap",
+      "email": "paplex@gmail",
+      "id": 4
+    },
+    {
+      "name": "keep",
+      "email": "keep@gmail",
+      "id": 5
+    }
+  ],
+  "posts": [
+    {
+      "title": "title one",
+      "body": "body one",
+      "published": true,
+      "userId": 1,
+      "id": 1
+    },
+    {
+      "title": "title two",
+      "body": "body two",
+      "published": true,
+      "userId": 1,
+      "id": 2
+    },
+    {
+      "title": "title three",
+      "body": "body three",
+      "published": true,
+      "userId": 2,
+      "id": 3
+    },
+    {
+      "title": "title four",
+      "body": "body four",
+      "published": true,
+      "userId": 3,
+      "id": 4
+    },
+    {
+      "title": "title five",
+      "body": "body five",
+      "published": true,
+      "userId": 3,
+      "id": 6
+    },
+    {
+      "title": "next text",
+      "body": "next word",
+      "published": true,
+      "userId": 3,
+      "id": 7
+    },
+    {
+      "title": "lame",
+      "body": "many lame",
+      "published": true,
+      "userId": 3,
+      "id": 8
+    },
+    {
+      "title": "kate",
+      "body": "juju lane",
+      "published": true,
+      "userId": 3,
+      "id": 9
+    },
+    {
+      "title": "mumu jake",
+      "body": "keep mumu",
+      "published": true,
+      "userId": 4,
+      "id": 10
+    },
+    {
+      "title": "mouth",
+      "body": "laagoon mouth",
+      "published": true,
+      "userId": 4,
+      "id": 11
+    },
+    {
+      "title": "pale",
+      "body": "pale juju keep",
+      "published": true,
+      "userId": 4,
+      "id": 12
+    },
+    {
+      "title": "round next",
+      "body": "loop round",
+      "published": true,
+      "userId": 4,
+      "id": 13
+    },
+    {
+      "title": "lake wafer",
+      "body": "peek lagos query",
+      "published": true,
+      "userId": 4,
+      "id": 14
+    },
+    {
+      "title": "lake wafer",
+      "body": "peek lagos query",
+      "published": true,
+      "userId": 4,
+      "id": 15
+    },
+    {
+      "title": "lake wafer",
+      "body": "peek lagos query",
+      "published": true,
+      "userId": 4,
+      "id": 16
+    },
+    {
+      "title": "lake wafer",
+      "body": "peek lagos query",
+      "published": true,
+      "userId": 5,
+      "id": 17
+    },
+    {
+      "title": "kepa los",
+      "body": "just poppy",
+      "published": true,
+      "userId": 5,
+      "id": 19
+    },
+    {
+      "title": "keeping up",
+      "body": "next lane man",
+      "published": true,
+      "userId": 5,
+      "id": 20
+    },
+    {
+      "title": "mumu kept",
+      "body": "the world is sperical",
+      "published": true,
+      "userId": 5,
+      "id": 21
+    },
+    {
+      "title": "left me",
+      "body": "moving tain ways",
+      "published": true,
+      "userId": 5,
+      "id": 22
+    },
+    {
+      "title": "left me",
+      "body": "andela was great",
+      "published": true,
+      "userId": 5,
+      "id": 23
+    }
+  ],
+  "comments": []
+}

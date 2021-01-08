@@ -1,6 +1,7 @@
 type Subscription {
   comment(postId: ID!): CommentSubscriptionPayload!
   post: PostSubscriptionPayload!
+  user: UserScubscriptionPayload!
 }
 
 type Query {
@@ -80,11 +81,16 @@ type Comment {
 
 type PostSubscriptionPayload {
   mutation: MutationType!
-  data: Post!
+  node: Post
 }
 type CommentSubscriptionPayload {
   mutation: MutationType!
-  node: Comment!
+  node: Comment
+}
+
+type UserScubscriptionPayload {
+  mutation: MutationType!
+  node: User
 }
 
 enum MutationType {
